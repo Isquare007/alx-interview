@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # returns the list of integers representing the pascal triangle
 
 def pascal_triangle(n):
