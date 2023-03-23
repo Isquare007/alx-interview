@@ -9,10 +9,9 @@ def pascal_triangle(n):
             Args:
                 n (int): An integer
     """
-    r = []
+    pascal_list = []
     prev = []
     curr = []
-    curr_len = 0
 
     while n > 0:
         prev = curr
@@ -21,7 +20,7 @@ def pascal_triangle(n):
         while i < len(prev):
             curr[i] = prev[i - 1] + prev[i]
             i += 1
-        r.append(curr)
+        pascal_list.append(curr)
         n -= 1
 
-    return r
+    return pascal_list
