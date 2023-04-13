@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 if parts[-2] in stats.keys():
                     stats[parts[-2]] += 1
 
-                total_size += parts[-1]
+                total_size += int(parts[-1])
 
             except (IndexError, ValueError):
                 pass
