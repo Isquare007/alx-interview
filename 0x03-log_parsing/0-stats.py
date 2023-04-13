@@ -30,6 +30,7 @@ if __name__ == "__main__":
     try:
         for line in sys.stdin:
             parts = line.split()
+            line_count += 1
             try:
                 status_Code = parts[7]
                 file_size = int(parts[8])
@@ -38,7 +39,7 @@ if __name__ == "__main__":
                     stats[status_Code] += 1
 
                 total_size += file_size
-                line_count += 1
+                
             except (IndexError, ValueError):
                 pass
 
