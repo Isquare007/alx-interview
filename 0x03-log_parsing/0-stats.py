@@ -28,16 +28,15 @@ if __name__ == "__main__":
     try:
         for line in sys.stdin:
             parts = line.split()
-            line_count += 1
             try:
-                # status_Code = parts[7]
-                # file_size = int(parts[8])
+                status_Code = parts[7]
+                file_size = int(parts[8])
 
-                if parts[-2] in stats.keys():
-                    stats[parts[-2]] += 1
+                if status_Code in stats:
+                    stats[status_Code] += 1
 
-                total_size += int(parts[-1])
-                
+                total_size += file_size
+                line_count += 1
             except (IndexError, ValueError):
                 pass
 
@@ -47,3 +46,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         print_stat()
         raise
+    else:
+        print_stat()
