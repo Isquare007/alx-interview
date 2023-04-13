@@ -47,5 +47,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         print_stat()
         raise
-    else:
-        print_stat()
