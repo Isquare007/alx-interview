@@ -1,55 +1,44 @@
 #!/usr/bin/python3
 """
-A script: Reads standard input line by line and computes metrics
+Log Parsing
 """
+import sys
 
 
-def parseLogs():
+total_file_size = 0
+status = ['200', '301', '400', '401', '403', '404', '405', '500']
+obj = dict.fromkeys(status, 0)
+
+
+def printLogStat():
     """
-    Reads logs from standard input and generates reports
-    Reports:
-        * Prints log size after reading every 10 lines & at KeyboardInterrupt
-    Raises:
-        KeyboardInterrupt (Exception): handles this exception and raises it
+    log stats
     """
-    stdin = __import__('sys').stdin
-    lineNumber = 0
-    fileSize = 0
-    statusCodes = {}
-    codes = ('200', '301', '400', '401', '403', '404', '405', '500')
+    print("File size: {}".format(total_file_size))
+    for key, value in sorted(obj.items()):
+        if value > 0:
+            print("{}: {}".format(key, value))
+
+
+if __name__ == "__main__":
+    count_stat = 0
     try:
-        for line in stdin:
-            lineNumber += 1
+        for line in sys.stdin:
             line = line.split()
+            count_stat += 1
             try:
-                fileSize += int(line[-1])
-                if line[-2] in codes:
-                    try:
-                        statusCodes[line[-2]] += 1
-                    except KeyError:
-                        statusCodes[line[-2]] = 1
+                total_file_size += int(line[-1])
+
+                if line[-2] in status:
+                    obj[line[-2]] += 1
+
             except (IndexError, ValueError):
                 pass
-            if lineNumber == 10:
-                report(fileSize, statusCodes)
-                lineNumber = 0
-        report(fileSize, statusCodes)
-    except KeyboardInterrupt as e:
-        report(fileSize, statusCodes)
+
+            if count_stat % 10 == 0:
+                printLogStat()
+    except KeyboardInterrupt:
+        printLogStat()
         raise
-
-
-def report(fileSize, statusCodes):
-    """
-    Prints generated report to standard output
-    Args:
-        fileSize (int): total log size after every 10 successfully read line
-        statusCodes (dict): dictionary of status codes and counts
-    """
-    print("File size: {}".format(fileSize))
-    for key, value in sorted(statusCodes.items()):
-        print("{}: {}".format(key, value))
-
-
-if __name__ == '__main__':
-    parseLogs()
+    else:
+        printLogStat()
