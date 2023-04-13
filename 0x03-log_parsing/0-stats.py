@@ -17,31 +17,32 @@ stats = {
 total_size = 0
 line_count = 0
 
-try:
-    for line in sys.stdin:
-        try:
-            parts = line.split()
-            ip_address = parts[0]
-            data = parts[2][1:]
-            request = parts[4][1:]
-            status_Code = parts[7]
-            file_size = int(parts[8])
+def print_stat():
+    """prints the infos"""
+    print("File size: {}".format(total_size))
+    for key, value in sorted(stats.items()):
+        if value > 0:
+            print("{}: {}".format(key, value))
 
-        except Exception:
-            continue
+if __name__ == "__main__":
+    try:
+        for line in sys.stdin:
+            try:
+                parts = line.split()
+                status_Code = parts[7]
+                file_size = int(parts[8])
 
-        if status_Code in stats:
-            stats[status_Code] += 1
+                if status_Code in stats:
+                    stats[status_Code] += 1
 
-        total_size += file_size
-        line_count += 1
+                total_size += file_size
+                line_count += 1
 
-        if line_count % 10 == 0:
-            print("File size: {}".format(total_size))
+                if line_count % 10 == 0:
+                    print_stat()
+            except (IndexError, ValueError):
+                pass
 
-            for stat in sorted(stats.keys()):
-                if stats[stat] > 0:
-                    print("{}: {}".format(stat, stats[stat]))
-
-except KeyboardInterrupt:
-    print("keyboard interupted")
+    except KeyboardInterrupt as e:
+        print_stat()
+        raise
