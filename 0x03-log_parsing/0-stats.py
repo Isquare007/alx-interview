@@ -32,14 +32,11 @@ if __name__ == "__main__":
             parts = line.split()
             line_count += 1
             try:
-                status_Code = parts[7]
-                file_size = int(parts[8])
+                if parts[-2] in stats.keys():
+                    stats[parts[-2]] += 1
 
-                if status_Code in stats.keys():
-                    stats[status_Code] += 1
+                total_size += parts[-1]
 
-                total_size += file_size
-                
             except (IndexError, ValueError):
                 pass
 
