@@ -30,10 +30,10 @@ def validUTF8(data):
                 return False
             num_bytes -= 1
     # If there are still bytes to read, the encoding is invalid
-    if num_bytes != 0:
-        return False
+    if num_bytes == 0:
+        return True
 
-    return True
+    return False
 
 
 data = [65]
