@@ -14,23 +14,21 @@ def validUTF8(data):
     for byte in data:
         # Check if the byte is a continuation byte
         if num_bytes == 0:
-            if (byte & 128) == 0:
-                num_bytes = 0
-            elif (byte & 224) == 192:
+            if (byte >> 5) == 0b110:
                 num_bytes = 1
-            elif (byte & 240) == 224:
+            elif (byte >> 4) == 0b1110:
                 num_bytes = 2
-            elif (byte & 248) == 240:
+            elif (byte >> 3) == 0b11110:
                 num_bytes = 3
-            else:
+            elif (byte >> 7):
                 return False
         else:
             # Check if the byte is a continuation byte
-            if (byte & 193) != 128:
+            if (byte >> 6) != 0b10:
                 return False
             num_bytes -= 1
     # If there are still bytes to read, the encoding is invalid
-    if num_bytes == 0:
-        return True
+    if num_bytes != 0:
+        return False
 
-    return False
+    return True
