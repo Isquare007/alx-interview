@@ -5,14 +5,13 @@ import sys
 
 def print_solutions():
     """gets n for cli and prints the solution nicely"""
-    n = sys.argv[1]
 
-    if len(sys.argv) > 2:
+    if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
 
     try:
-        n = int(n)
+        n = int(sys.argv[1])
     except ValueError:
         print("N must be a number")
         sys.exit(1)
