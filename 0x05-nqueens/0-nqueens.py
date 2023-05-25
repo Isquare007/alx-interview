@@ -32,7 +32,7 @@ def print_solutions():
 
 def solve_queen(n):
     """ creates a set for column, updiagonal and downdiagonal of the board,
-    the backtracking make use of them. they contain all the 
+    the backtracking make use of them. they contain all the
     diagonal, left and right movement of a position
     Also populates the board with "."
 
