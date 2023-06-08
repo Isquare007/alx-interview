@@ -5,10 +5,8 @@ from typing import List
 
 def rotate_2d_matrix(matrix: List[list]) -> None:
     """rotates a 2d matrix"""
-    m = len(matrix)
-    for i in range(m):
-        for y in range(i, m):
-            matrix[i][y], matrix[y][i] = matrix[y][i], matrix[i][y]
+    n = len(matrix[0])
 
-    for i in range(m):
-        matrix[i] = matrix[i][::-1]
+    for i in range(n - 1, -1, -1):
+        for j in range(0, n):
+            matrix[j].append(matrix[i].pop(0))
