@@ -6,15 +6,26 @@ def makeChange(coins, total):
     """Given a pile of coins of different values, determine the
     fewest number of coins needed to meet a given amount total.
     """
-    if total <= 0:
-        return 0
+    coins.sort(reverse=True)
 
-    dp = [total + 1] * (total + 1)
-    dp[0] = 0
+    # Initialize a counter for the number of coins needed
+    count = 0
 
-    for t in range(1, total + 1):
-        for c in coins:
-            if c <= t:
-                dp[t] = min(dp[t], 1 + dp[t - c])
+    # Iterate through each coin denomination
+    for coin in coins:
+        # Count the number of coins needed for the current denomination
+        coin_count = total // coin
+        count += coin_count
 
-    return dp[total] if dp[total] != total + 1 else -1
+        # Update the remaining amount
+        total -= coin * coin_count
+
+        # Check if the amount has been reduced to 0
+        if total == 0:
+            break
+
+    # If the amount is not reduced to 0, it cannot be made with the given coins
+    if total != 0:
+        return -1  # Or any other appropriate value to indicate impossibility
+
+    return count
