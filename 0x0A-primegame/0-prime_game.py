@@ -39,6 +39,7 @@ def isWinner(x, nums):
     elif Ben > Maria:
         return 'Ben'
     return None
-    
+
+
 if __name__ == "__main__":
     print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
