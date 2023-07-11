@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """0-prime_game module"""
 
+
 def primeNumbers(n):
     """
     Get all prime numbers within range
