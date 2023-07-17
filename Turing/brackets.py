@@ -19,5 +19,5 @@ def bracket(s : str) -> bool:
                 return False
     return len(stack) == 0
 
-s = "[({})]"
+s = "[({))]"
 print(bracket(s))
